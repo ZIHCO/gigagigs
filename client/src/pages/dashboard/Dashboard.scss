@@ -1,0 +1,19 @@
+/* mobile screen style */
+.dashboard{
+  padding: 12.5px 25px;
+  display: flex;
+  flex-direction: column;
+  .profileContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    .profile{
+      flex: 1;
+    }
+    .pfp{
+      flex: 1;
+    }
+  }
+}
