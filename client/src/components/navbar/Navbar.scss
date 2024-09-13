@@ -1,0 +1,122 @@
+/* mobile screen styles */
+.navbar{
+    z-index: 1000;
+    background-color: #3e2b3c;
+    color: white;
+    display: flex;
+    top: 0;
+    position: sticky;
+    .container{
+      padding: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      .logoMenuButton{
+        height: 100px;
+        display: flex;
+        .logo{
+          display: flex;
+          justify-content: left;
+          align-items: center;
+          font-size: 34px;
+          flex: 1;
+          padding-left: 25px;
+          font-weight: bold;
+          .text{
+            color: rgb(248, 99, 53);
+          }
+        }
+        .navLinks{
+          flex: 1;
+          display: flex;
+          align-items: center;
+          padding-right: 25px;
+          justify-content: right;
+          font-size: 1.2rem;
+          font-weight: 500;
+          .profileMobile{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            img{
+              height: 40px;
+              width: 40px;
+              border-radius: 50%;
+              background-color: azure;
+            }
+          }
+          button{
+            border: none;
+            img{
+              height: 40px;
+              width: 40px;
+            }
+          }
+        }
+      }
+      .nav-links{
+        border: 1px solid white;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        .menu{
+          flex: 1;
+          color: #fff;
+          padding-left: 25px;
+          padding-right: 25px;
+          background: #3e2b3c;
+          display: flex;
+          justify-content: space-between;
+          .profileLargerScreen{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  /* larger screen style */
+  @media(min-width: 768px) {
+    .navbar{
+      .container{
+        display: flex;
+        flex-direction: row;
+        .logoMenuButton{
+          flex: 1;
+          .logo{
+            padding-left: 80px;
+          }
+          .navLinks{
+            .profileMobile{
+              display: none;
+            }
+            button{
+              display: none;
+            }
+          }
+        }
+        .nav-links{
+          border: none;
+          height: 100px;
+          flex: 1;
+          .menu{
+            display: flex;
+            align-items: center;
+            padding-left: 80px;
+            padding-right: 80px;
+            .profileLargerScreen{
+              display: flex;
+              flex-direction: column;
+              img{
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                background-color: azure;
+              }
+            }
+          }
+        }
+      }
+    }
+  }

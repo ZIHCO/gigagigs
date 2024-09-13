@@ -1,0 +1,40 @@
+/* mobile screen size */
+.profile{
+  display: flex;
+  flex-direction: column;
+  .info{
+    flex: 1;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    word-wrap: break-word;
+    text-align: center;
+    i{
+      font-weight: bold;
+      font-style: normal;
+    }
+    .headline{
+      font-weight: normal;
+      font-style: oblique;
+    }
+    .name{
+      font-size: 1.2rem;
+    }
+  }
+  .editButton{
+    flex: 1;
+    display: flex;
+    justify-content: right;
+    button{
+      cursor: pointer;
+      border: none;
+      background-color: #fff;
+      img{
+        height: 25px;
+        width: 40px;
+      }
+    }
+  }
+}

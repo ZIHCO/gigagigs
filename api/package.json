@@ -1,0 +1,35 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Contain the api dependencies for this project",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint",
+    "start-server": "nodemon --exec babel-node --presets @babel/preset-env ./server.js",
+    "dev": "nodemon --exec babel-node --presets @babel/preset-env",
+    "test": "./node_modules/.bin/mocha --require @babel/register --exit"
+  },
+  "keywords": [],
+  "author": "Chizoba ODINAKA",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/node": "^7.25.0",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/register": "^7.24.6",
+    "eslint": "^9.10.0",
+    "globals": "^15.9.0",
+    "nodemon": "^3.1.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "eslint-plugin-node": "^11.1.0",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
+    "multer": "^1.4.5-lts.1",
+    "redis": "^4.7.0",
+    "sha256": "^0.2.0"
+  }
+}

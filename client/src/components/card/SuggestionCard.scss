@@ -1,0 +1,37 @@
+/* mobile styles */
+.suggestionCard{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 152px;
+  height: 244px;
+  background-color: #d2d2d2c1;
+  img{
+    max-height: 152px;
+    flex: 4;
+    width: 152px;
+  }
+  span{
+    font-size: 1.5rem;
+    flex: 1;
+    text-align: center;
+  }
+}
+
+/* Larger screen styles */
+@media(min-width: 768px) {
+  .suggestionCard{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 252px;
+    height: 344px;
+    img{
+      max-height: 252px;
+      width: 252px;
+    }
+    span{
+      text-align: center;
+    }
+  }
+}
