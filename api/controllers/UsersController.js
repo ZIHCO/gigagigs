@@ -94,4 +94,53 @@ export default class UsersController {
 
     return res.status(200).json({...updatedUser});
   }
+
+  static async putMe(req, res) {
+    const authToken = req.get('Authorization');
+
+    if (!authToken) return res.status(401).json({error: 'Unauthorized'});
+
+    const key = `auth_${authToken.split(' ')[1]}`;
+    const userId = await redisClient.get(key);
+    if (!userId) return res.status(401).json({error: 'Unauthorized'});
+
+    const secretKey = process.env.SECRETKEY || 'gigagigs';
+    const accessToken = authToken.split(' ')[1];
+    const validToken = JWTSecure.verify(accessToken, secretKey);
+    if (!validToken) return res.status(401).json({ error: 'Unauthorized'});
+
+    await redisClient.del(key);
+    const user = await dbClient.usersCollection.findOne({_id: new ObjectId(userId)});
+    if (!user) return res.status(401).json({error: 'Unauthorized'});
+  
+    const profile = user['profile'];
+    const { name, headline, skills, } = req.body;
+    
+    Object.assign(profile, {name, skills, headline});
+
+    await dbClient.usersCollection.updateOne(
+      {_id: new ObjectId(userId)}, {
+        $set: {profile: profile, updatedAt: new Date()
+        },
+      });
+
+    const updatedUser = await dbClient.usersCollection.findOne({_id: new ObjectId(userId)});
+
+    delete updatedUser.password;
+    delete user.email;
+
+    const token = JWTSecure.sign({
+      username: user.username,
+    }, secretKey, {expiresIn: '15m'});
+
+    await redisClient.set(
+      `auth_${token}`, user._id.toString(), (60 * 15),
+    );
+    res.set('Authorization', `Bearer ${token}`);
+    res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+
+    delete user._id;
+
+    return res.status(200).json({...updatedUser});
+  }
 }
