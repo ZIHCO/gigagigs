@@ -21,6 +21,7 @@ router.get('/stats', AppController.getStats);
  */
 router.post('/register', UsersController.postNew);
 router.put('/user/update-pfp', upload.single('file'), UsersController.putPfp);
+router.put('/user/:username', UsersController.putMe);
 
 /**
  * authentication endpoints
