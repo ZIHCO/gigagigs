@@ -10,6 +10,8 @@ import Login from './pages/auth/Login.js';
 import Logout from './pages/logout/Logout.js';
 import Register from './pages/auth/Register.js';
 import Dashboard from './pages/dashboard/Dashboard.js';
+import { connect } from 'react-redux';
+import { mapDispatchToProps, mapStateToProps } from './redux/actions.js';
 /*import JobListing from './pages/jobs/JobListing.js';
 import MyJobs from './pages/jobs/MyJobs.js';
 import Propose from './pages/proposals/Propose.js';
@@ -19,7 +21,7 @@ import MyProposals from './pages/proposals/MyProposals.js';*/
 /**
  * App component
  */
-export default class App extends Component {
+class App extends Component {
   /**
    * props - argument
    */
@@ -95,3 +97,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

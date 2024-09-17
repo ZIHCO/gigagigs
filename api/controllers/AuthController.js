@@ -32,11 +32,32 @@ export default class AuthController {
 
     delete user.password;
     delete user.email;
-    delete user._id;
 
     res.set('Authorization', `Bearer ${token}`);
     res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-    return res.status(200).json({...user});
+
+    const pipeline = [];
+
+    if (user.profile.skills) {
+      pipeline.push({
+        $match: {
+          skills: { $in: user.profile.skills },
+          clientId: { $ne: user._id },
+          status: 'open'
+        }
+      });
+      pipeline.push({
+        $limit: 10,
+      });
+    }
+
+    const recommendedJobs = await dbClient.jobsCollection
+      .aggregate(pipeline)
+      .toArray();
+
+    delete user._id;
+
+    return res.status(200).json({currentUser: user, recommendedJobs});
   }
 
   /**

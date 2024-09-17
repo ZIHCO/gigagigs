@@ -33,7 +33,7 @@ export default class LoginForm extends Component {
 
     try {
       const response = await fetch(
-        'http://192.168.169.6:5000/login',
+        `${process.env.REACT_APP_API_URL}/login`,
         {
           method: 'POST',
           headers: {
@@ -53,7 +53,8 @@ export default class LoginForm extends Component {
       const result = await response.json();
       const headers = await response.headers;
       sessionStorage.setItem('Authorization', JSON.stringify(headers.get('Authorization')));
-      sessionStorage.setItem('currentUser', JSON.stringify(result));
+      sessionStorage.setItem('currentUser', JSON.stringify(result.currentUser));
+      sessionStorage.setItem('recommendedJobs', JSON.stringify(result.recommendedJobs));
 
       this.setState({
         success: true, loading: false,

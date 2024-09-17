@@ -10,7 +10,7 @@ const server = express();
 
 // parses incoming requests with JSON payloads and cookieparse response
 server.use(cors({
-  origin: ['http://192.168.169.6:3000', 'http://localhost:3000'],
+  origin: [process.env.REACT_APP_BASE_URL, 'http://localhost:3000'],
 }));
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
