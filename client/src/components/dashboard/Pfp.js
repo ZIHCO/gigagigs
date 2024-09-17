@@ -24,7 +24,7 @@ export default class Pfp extends Component {
 
     try {
       const response = await fetch(
-        'http://192.168.169.6:5000/user/update-pfp',
+        `${process.env.REACT_APP_API_URL}/user/update-pfp`,
         {
           method: 'PUT',
           headers: {

@@ -2,6 +2,9 @@
 .profile{
   display: flex;
   flex-direction: column;
+  width: 100%;
+  gap: 20px;
+  padding-bottom: 20px;
   .infoContainer{
     display: flex;
     flex-direction: column;
@@ -10,11 +13,12 @@
       gap: 5px;
       display: flex;
       flex-direction: column;
-      width: 100%;
       justify-content: center;
       word-wrap: break-word;
       text-align: center;
       i{
+        //gap: 20px;
+        
         font-weight: bold;
         font-style: normal;
       }
@@ -38,52 +42,6 @@
           height: 25px;
           width: 40px;
         }
-      }
-    }
-  }
-  .updateInfo{
-    h3{
-      padding-left: 5px;
-    }
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    form{
-      background-color: #fff;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      .formGroup{
-        border: 1px solid  #d2d2d2c1;
-        display: flex;
-        align-items: center;
-        background-color:  #d2d2d2c1;
-        label{
-          padding: 5px 5px;
-          flex: 1.5;
-          display: flex;
-          flex-direction: column;
-          i{
-            font-style: normal;
-          }
-        }
-        input{
-          outline: none;
-          flex: 4;
-          border: none;
-          height: 34px;
-        }
-        textarea{
-          outline: none;
-          flex: 4;
-          border: none;
-        }
-      }
-      button{
-        height: 34px;
-        background-color:  #d2d2d2c1;
-        cursor: pointer;
-        border: none;
       }
     }
   }

@@ -35,7 +35,7 @@ export default class RegisterForm extends Component {
 
     try {
       const response = await fetch(
-        'http://192.168.169.6:5000/register',
+        `${process.env.REACT_APP_API_URL}/register`,
         {
           method: 'POST',
           headers: {

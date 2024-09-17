@@ -15,7 +15,7 @@ export default class Logout extends Component {
   async handleLogout() {
     try{
       const response = await fetch(
-        'http://192.168.169.6:5000/logout',
+        `${process.env.REACT_APP_API_URL}/logout`,
         {
           method: 'GET',
           headers: {

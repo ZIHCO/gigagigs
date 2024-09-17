@@ -1,0 +1,48 @@
+/* mobile screen size */
+.updateProfile{
+  .updateInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h3{
+    }
+    form{
+      display: flex;
+      background-color: #fff;
+      flex-direction: column;
+      gap: 10px;
+      .formGroup{
+        border: 1px solid  #d2d2d2c1;
+        display: flex;
+        align-items: center;
+        background-color:  #d2d2d2c1;
+        label{
+          padding: 5px 5px;
+          flex: 1.5;
+          display: flex;
+          flex-direction: column;
+          i{
+            font-style: normal;
+          }
+        }
+        input{
+          outline: none;
+          flex: 4;
+          border: none;
+          height: 34px;
+        }
+        textarea{
+          outline: none;
+          flex: 4;
+          border: none;
+        }
+      }
+      button{
+        height: 40px;
+        background-color:  #d2d2d2c1;
+        cursor: pointer;
+        border: none;
+      }
+    }
+  }
+}
