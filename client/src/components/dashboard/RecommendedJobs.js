@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import RecommendationCard from '../card/RecommendationCard.js';
-import './Jobs.scss';
+import './RecommendedJobs.scss';
 
 
-export default class Jobs extends Component {
+export default class RecommendedJobs extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +14,7 @@ export default class Jobs extends Component {
   render() {
     const { recommendedJobs } = this.state;
     return (
-      <div className="jobs">
+      <div className="recommendedJobs">
         <h2>Jobs recommendation</h2>
         {recommendedJobs.map((item, index) => (
           <div className="slide" key={index}>

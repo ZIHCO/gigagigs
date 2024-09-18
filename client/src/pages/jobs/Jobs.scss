@@ -1,0 +1,47 @@
+/* mobile screen style */
+.jobs{
+    padding: 12.5px 25px;
+    display: flex;
+    flex-direction: column;
+    .containerOne{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      .profile{
+      }
+      .pfp{
+      }
+    }
+    .containerTwo{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .editProfile{
+        padding: 5px;
+        border: 1px solid #d1d1d1c1;
+        box-shadow: 1px 1px 1px 1px #d1d1d1c1;
+        padding-bottom: 15px;
+      }
+    }
+  }
+  /*Larger screen style*/
+  @media(min-width: 768px) {
+    .jobs{
+      padding-left: 80px;
+      padding-right: 80px;
+      display: flex;
+      flex-direction: row;
+      .containerOne{
+        flex: 1;
+      }
+      .containerTwo{
+        padding-left: 40px;
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }

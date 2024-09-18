@@ -2,6 +2,7 @@ import express from 'express';
 import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
 import AuthController from '../controllers/AuthController';
+import JobsController from '../controllers/JobsController';
 import multer from 'multer';
 
 
@@ -28,5 +29,12 @@ router.put('/user/:username', UsersController.putMe);
  */
 router.post('/login', AuthController.postConnect);
 router.get('/logout', AuthController.getDisconnect);
+
+/**
+ * job controller endpoints
+ */
+router.post('/jobs/create-job', JobsController.postNew);
+router.get('/jobs/my-jobs', JobsController.getAll);
+router.delete('/jobs/:id/delete', JobsController.deleteJob);
 
 export default router;

@@ -1,0 +1,114 @@
+/* mobile screen style */
+.jobListing{
+  padding: 12.5px 25px;
+  display: flex;
+  flex-direction: column;
+  .containerOne{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    .profile{
+    }
+    .pfp{
+    }
+  }
+  .containerTwo{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    h3{
+    }
+    form{
+      display: flex;
+      background-color: #fff;
+      flex-direction: column;
+      gap: 10px;
+      i{
+        font-style: normal;
+        color: red;
+      }
+      .formGroup{
+        border: 1px solid  #d2d2d2c1;
+        display: flex;
+        align-items: center;
+        background-color:  #d2d2d2c1;
+        label{
+          padding: 5px 5px;
+          flex: 1.5;
+          display: flex;
+          flex-direction: column;
+          i{
+            font-style: normal;
+          }
+        }
+        input{
+          outline: none;
+          flex: 4;
+          border: none;
+          height: 34px;
+        }
+        textarea{
+          outline: none;
+          flex: 4;
+          border: none;
+        }
+      }
+      .budget{
+        display: flex;
+        gap: 40px;
+        .numberGroup{
+          flex: 1;
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          background-color: #d1d1d1c1;
+          border: 1px solid #d1d1d1c1;
+          max-width: 110px;
+          input{
+            max-width: 100px;
+            height: 34px;
+            font-size: 20px;
+            padding-left: 5px;
+            border: none;
+          }
+        }
+      }
+      button{
+        height: 40px;
+        background-color:  #d2d2d2c1;
+        cursor: pointer;
+        border: none;
+      }
+    }
+  }
+}
+  /*Larger screen style*/
+  @media(min-width: 768px) {
+    .jobListing{
+      height: 100vh;
+      padding-left: 80px;
+      padding-right: 80px;
+      display: flex;
+      flex-direction: row;
+      .containerOne{
+        flex: 1;
+      }
+      .containerTwo{
+        padding-left: 40px;
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        form{
+          .budget{
+            .numberGroup{
+              display: flex;
+              flex-direction: row;
+              max-width: 205px;
+            }
+          }
+        }
+      }
+    }
+  }

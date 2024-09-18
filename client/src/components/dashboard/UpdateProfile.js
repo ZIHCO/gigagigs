@@ -50,7 +50,8 @@ class UpdateProfile extends Component {
     } = this.state;
 
     const skillString = this.state.skills;
-    const skills = skillString.split(', ');
+    const skillStringToLowercase = skillString.toLowerCase();
+    const skills = skillStringToLowercase.split(', ');
 
     try {
       const response = await fetch(
