@@ -1,0 +1,52 @@
+/* mobile styles */
+.pendingJobsCard{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    box-shadow: 1px 1px 1px 1px #d2d2d2c1;
+    border: 1px solid #d2d2d2c1;
+    .title{
+      padding: 10px;
+      background-color: #d2d2d2c1;
+      span{
+        font-size: 1.5rem;
+        font-weight: 500;
+        i{
+          font-style: normal;
+          font-weight: bold;
+        }
+      }
+    }
+    .details{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+      p{
+        font-weight: 500;
+        i{
+          font-style: normal;
+          font-weight: bold;
+        }
+      }
+    }
+    .apply{
+      display: flex;
+      justify-content: center;
+      padding-bottom: 20px;
+      button{
+        cursor: pointer;
+        background-color: #d2d2d2c1;
+        height: 34px;
+      }
+    }
+  }
+  
+  /* Larger screen styles */
+  @media(min-width: 768px) {
+    .pendingJobsCard{
+      display: flex;
+      flex-direction: column;
+    }
+  }

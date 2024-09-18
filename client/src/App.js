@@ -12,9 +12,9 @@ import Register from './pages/auth/Register.js';
 import Dashboard from './pages/dashboard/Dashboard.js';
 import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from './redux/actions.js';
-/*import JobListing from './pages/jobs/JobListing.js';
-import MyJobs from './pages/jobs/MyJobs.js';
-import Propose from './pages/proposals/Propose.js';
+import JobListing from './pages/jobs/JobListing.js';
+import Jobs from './pages/jobs/Jobs.js';
+/*import Propose from './pages/proposals/Propose.js';
 import MyProposals from './pages/proposals/MyProposals.js';*/
 
 
@@ -48,6 +48,14 @@ class App extends Component {
         element: <Register />
       },
       {
+        path: '/jobs/create-job',
+        element: <JobListing />
+      },
+      {
+        path: '/jobs/my-jobs',
+        element: <Jobs />
+      },
+      {
         path: '/dashboard',
         element: <Dashboard />
       }
@@ -57,14 +65,6 @@ class App extends Component {
       children = children.slice(0, children.length - 1);
     }
     /*
-      {
-        path: "/jobs/create-job",
-        element: <JobListing />
-      },
-      {
-        path: "/jobs/my-jobs",
-        element: <MyJobs />
-      },
       {
         path: "/proposalss/create-proposal",
         element: <Propose />

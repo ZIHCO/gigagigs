@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import Pfp from '../../components/dashboard/Pfp.js';
 import Profile from '../../components/dashboard/Profile.js';
-import RecommendedJobs from '../../components/dashboard/RecommendedJobs.js';
-import UpdateProfile from '../../components/dashboard/UpdateProfile.js';
-import './Dashboard.scss';
+import MyJobs from '../../components/myJobs/MyJobs.js';
+import './Jobs.scss';
 import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from '../../redux/actions.js';
 
 /**
- * Dashboard component
+ * Jobs page
  */
-class Dashboard extends Component{
+class Jobs extends Component{
   constructor(props) {
     super(props);
   }
@@ -18,21 +17,18 @@ class Dashboard extends Component{
   render() {
     const {editProfile} = this.props;
     return (
-      <div className="dashboard">
+      <div className="jobs">
         <div className="containerOne">
           <div className="pfp">
             <Pfp />
           </div>
           <div className="profile">
-            <Profile />
+            <Profile disabledEditButton={true}/>
           </div>
         </div>
         <div className='containerTwo'>
-          {editProfile && <div className='editProfile'>
-            <UpdateProfile />
-          </div>}
-          <div className="jobs">
-            <RecommendedJobs />
+          <div className="myJobs">
+            <MyJobs />
           </div>
         </div>
       </div>
@@ -40,4 +36,4 @@ class Dashboard extends Component{
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Jobs);

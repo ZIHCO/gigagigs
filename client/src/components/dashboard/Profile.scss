@@ -44,5 +44,19 @@
         }
       }
     }
+    .navButtons{
+      display: flex;
+      justify-content: space-around;
+      padding-top: 20px;
+      button{
+        padding: 5px;
+        cursor: pointer;
+        background-color: #3e2b3c;
+        color: #fff;
+        font-weight: 500;
+        height: 34px;
+        border: none;
+      }
+    }
   }
 }

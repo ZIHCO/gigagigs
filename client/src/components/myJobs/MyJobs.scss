@@ -1,23 +1,28 @@
 /* Mobile styles */
-.jobs{
+.myJobs{
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    .slide-container{
-      align-items: center;
+    gap: 30px;
+    div{
       display: flex;
-      justify-content: space-between;
-      .slide{
+      flex-direction: column;
+      gap: 20px;
+      .slide-container{
+        align-items: center;
         display: flex;
-        justify-content: center;
-        flex: 1;
+        justify-content: space-between;
+        .slide{
+          display: flex;
+          justify-content: center;
+          flex: 1;
+        }
       }
     }
   }
   
   /* larger screen */
   @media(min-width: 768px){
-    .jobs{
+    .myJobs{
       display: flex;
       flex-direction: column;
       gap: 20px;
