@@ -27,6 +27,7 @@ class DBClient {
       });
     this.usersCollection = this.client.db().collection('users');
     this.jobsCollection = this.client.db().collection('jobs');
+    this.proposalsCollection = this.client.db().collection('proposals');
   }
 
   /**

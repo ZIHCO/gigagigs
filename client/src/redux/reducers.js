@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { LOGIN, LOGOUT, UPDATEPROFILE, CLOSEUPDATEPROFILE } from './actions.js';
+import { LOGIN, LOGOUT, UPDATEPROFILE, CLOSEUPDATEPROFILE, } from './actions.js';
 
-const defaultState = {authenticated: false};
+const authDefaultState = {authenticated: false};
 
-export const authReducer = (state=defaultState, action) => {
+export const authReducer = (state=authDefaultState, action) => {
   switch (action.type) {
   case LOGIN:
     return {authenticated: true};

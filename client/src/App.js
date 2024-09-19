@@ -14,8 +14,8 @@ import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from './redux/actions.js';
 import JobListing from './pages/jobs/JobListing.js';
 import Jobs from './pages/jobs/Jobs.js';
-/*import Propose from './pages/proposals/Propose.js';
-import MyProposals from './pages/proposals/MyProposals.js';*/
+import MakeProposal from './pages/proposals/MakeProposal.js';
+import Proposals from './pages/proposals/Proposals.js';
 
 
 /**
@@ -56,6 +56,14 @@ class App extends Component {
         element: <Jobs />
       },
       {
+        path: "/proposals/make-proposal",
+        element: <MakeProposal />
+      },
+      {
+        path: "/proposals/my-proposals",
+        element: <Proposals />
+      },
+      {
         path: '/dashboard',
         element: <Dashboard />
       }
@@ -64,16 +72,6 @@ class App extends Component {
     if (!sessionStorage.getItem('currentUser')) {
       children = children.slice(0, children.length - 1);
     }
-    /*
-      {
-        path: "/proposalss/create-proposal",
-        element: <Propose />
-      },
-      {
-        path: "/proposals/my-proposals",
-        element: <MyProposals />
-      }
-    ];*/
 
     let routersArr = [
       {

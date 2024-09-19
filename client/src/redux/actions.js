@@ -39,6 +39,6 @@ export const mapDispatchToProps = (dispatch) => {
     login: () => dispatch(loginUser()),
     logout: () => dispatch(logoutUser()),
     updateProfile: () => dispatch(updateProfile()),
-    closeUpdateProfile: () => dispatch(closeUpdateProfile())
+    closeUpdateProfile: () => dispatch(closeUpdateProfile()),
   };
 };

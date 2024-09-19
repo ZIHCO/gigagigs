@@ -4,11 +4,11 @@ import JWTSecure from '../utils/jwt';
 import redisClient from '../utils/redis';
 
 /**
- * job controller endpoint
+ * proposals controller endpoint
  */
-export default class JobsController {
+export default class ProposalsController {
   /**
-   * postNew - creates a new job
+   * postNew - creates a new proposal
    */
   static async postNew(req, res) {
     const authToken = req.get('Authorization');
@@ -26,29 +26,27 @@ export default class JobsController {
 
     await redisClient.del(key);
 
-    const { title, budget, description, skills } = req.body;
+    const { price, coverLetter, title, jobId } = req.body;
 
+    if (!price) return res.status(400).json({ error: 'Missing price' });
+    if (!coverLetter) return res.status(400).json({ error: 'Missing coverLetter' });
     if (!title) return res.status(400).json({ error: 'Missing title' });
-    if (!description) return res.status(400).json({ error: 'Missing description' });
-    if (!budget) return res.status(400).json({ error: 'Missing budget' });
-    if (!skills) return res.status(400).json({error: 'Missing skills'});
     
     const jobExists = await dbClient.jobsCollection.findOne({
-      clientId: userId, title, description, skills, budget
+      _id: new ObjectId(jobId)
     });
 
-    if (jobExists) return res.status(400).json({ error: 'Already exist' });
+    if (!jobExists) return res.status(400).json({ error: 'Job does not exist' });
 
-    await dbClient.jobsCollection.insertOne({
-      description,
-      budget,
-      clientId: userId,
-      freelancerId: null,
+    await dbClient.proposalsCollection.insertOne({
+      coverLetter,
+      price,
+      freelancerId: userId,
+      jobId,
       title,
-      status: 'open',
+      status: 'pending',
       createdAt: new Date(),
       updatedAt: new Date(),
-      skills,
     });
 
     const user = await dbClient.usersCollection.findOne({_id: new ObjectId(userId)});
@@ -63,19 +61,18 @@ export default class JobsController {
     res.set('Authorization', `Bearer ${token}`);
     res.setHeader('Access-Control-Expose-Headers', 'Authorization');
 
-    const usersJobs = await dbClient.jobsCollection.find({
-      clientId: new ObjectId(userId)
+    const userProposals = await dbClient.proposalsCollection.find({
+      freelancerId: userId
     }).toArray();
 
-    const openJobs = usersJobs.filter(item => item.status === 'open');
-    const pendingJobs = usersJobs.filter(item => item.status === 'pending');
-    const completedJobs = usersJobs.filter(item => item.status === 'completed');
+    const pendingProposals = userProposals.filter(item => item.status === 'pending');
+    const approvedProposals = userProposals.filter(item => item.status === 'approved');
 
-    return res.status(201).json({ openJobs, pendingJobs, completedJobs });
+    return res.status(201).json({ pendingProposals, approvedProposals });
   }
 
   /**
-   * getAll - retrieves all jobs belonging to this user
+   * getAll - retrieves all proposals belonging to this user
    */
   static async getAll(req, res) {
     const authToken = req.get('Authorization');
@@ -93,8 +90,7 @@ export default class JobsController {
 
     await redisClient.del(key);
 
-
-    const usersJobs = await dbClient.jobsCollection.find({clientId: userId}).toArray();
+    const usersProposals = await dbClient.proposalsCollection.find({freelancerId: userId}).toArray();
 
     const user = await dbClient.usersCollection.findOne({_id: new ObjectId(userId)});
 
@@ -105,14 +101,14 @@ export default class JobsController {
     await redisClient.set(
       `auth_${token}`, user._id.toString(), (60 * 15),
     );
+    
     res.set('Authorization', `Bearer ${token}`);
     res.setHeader('Access-Control-Expose-Headers', 'Authorization');
 
-    const openJobs = usersJobs.filter(item => item.status === 'open');
-    const pendingJobs = usersJobs.filter(item => item.status === 'pending');
-    const completedJobs = usersJobs.filter(item => item.status === 'completed');
+    const approvedProposals = usersProposals.filter(item => item.status === 'approved');
+    const pendingProposals = usersProposals.filter(item => item.status === 'pending');
 
-    return res.status(200).json({ openJobs, pendingJobs, completedJobs });
+    return res.status(200).json({ pendingProposals, approvedProposals });
   }
 
   /**
@@ -159,59 +155,29 @@ export default class JobsController {
   }
 
   /**
-   * searchJobs - queries jobs by skill
+   * getAllJobsBySkills - suggests jobs by skills
    */
-  static async searchJobs(req, res) {
-    const authToken = req.get('Authorization');
-    if (authToken) {
-      const key = `auth_${authToken.split(' ')[1]}`;
-      const userId = await redisClient.get(key);
-      if (userId) {
-        const secretKey = process.env.SECRETKEY || 'gigagigs';
-        const accessToken = authToken.split(' ')[1];
-        const validToken = JWTSecure.verify(accessToken, secretKey);
-        if (validToken) {
-          await redisClient.del(key);
-    
-          const user = await dbClient.usersCollection.findOne({_id: new ObjectId(userId)});  
-    
-          const token = JWTSecure.sign({
-            username: user.username,
-          }, secretKey, {expiresIn: '15m'});
-      
-          await redisClient.set(
-            `auth_${token}`, user._id.toString(), (60 * 15),
-          );
-          res.set('Authorization', `Bearer ${token}`);
-          res.setHeader('Access-Control-Expose-Headers', 'Authorization');
-        }
-      }
+  static async getAllJobsBySkills(req, res) {
+    const accessToken = req.cookies['accessToken'];
+    let accessTokenUsername;
+    if (accessToken) {
+      const secretKey = process.env.SECRETKEY || 'gigagigs';
+      const validToken = JWTSecure.verify(accessToken, secretKey);
+      if (!validToken) return res.status(401).json({ error: 'Unauthorized'});
+      accessTokenUsername = validToken['username'];
+      const username = accessTokenUsername;
+
+      //const user = await dbClient.usersCollection.findOne({username});
+      //if (!user) return res.status(404).json({ error: 'Not found' });
     }
+    const clientId = req.params.userId;
+    const user = await dbClient.usersCollection.findOne({_id: new ObjectId(clientId)});
+    const skills = user.profile.skills;
 
-    const pipeline = [];
-    const limit = parseInt(req.query.limit, 10);
-    const page = parseInt(req.query.page, 10) || 1;
-    const skip = (page - 1) * limit;
-    const {skill} = req.query;
-    const skillArray = [skill];
-
-    pipeline.push({
-      $match: {
-        skills: { $in: skillArray },
-        status: 'open'
-      }
-    });
-    pipeline.push({
-      $limit: limit,
-    });
-    pipeline.push({
-      $skip: skip,
-    })
-
-    const queryResult = await dbClient.jobsCollection
-      .aggregate(pipeline)
-      .toArray();
-      
-    res.status(200).json(queryResult);
+    const suggestedJobs = await dbClient.jobsCollection.find({
+      skills: { $in: skills },
+      clientId: { $ne: clientId }
+    }).toArray();
+    return res.status(200).json(suggestedJobs);
   }
 }

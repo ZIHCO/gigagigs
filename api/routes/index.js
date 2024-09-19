@@ -3,6 +3,7 @@ import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
 import AuthController from '../controllers/AuthController';
 import JobsController from '../controllers/JobsController';
+import ProposalsController from '../controllers/ProposalsController';
 import multer from 'multer';
 
 
@@ -34,7 +35,15 @@ router.get('/logout', AuthController.getDisconnect);
  * job controller endpoints
  */
 router.post('/jobs/create-job', JobsController.postNew);
+router.get('/jobs', JobsController.searchJobs);
 router.get('/jobs/my-jobs', JobsController.getAll);
 router.delete('/jobs/:id/delete', JobsController.deleteJob);
+
+
+/**
+ * proposals specific endpoints - creates, read
+ */
+router.post('/proposals/make-proposal', ProposalsController.postNew);
+router.get('/proposals/my-proposals', ProposalsController.getAll);
 
 export default router;

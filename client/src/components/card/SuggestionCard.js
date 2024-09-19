@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './SuggestionCard.scss';
-import PropTypes from 'prop-types';
 
 export default class SuggestionCard extends Component {
   render() {

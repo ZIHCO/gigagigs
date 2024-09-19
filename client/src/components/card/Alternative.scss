@@ -1,0 +1,24 @@
+/*mobile screen styles */
+.alternative{
+  padding: 12.5px 25px;
+  display: flex;
+  justify-content: center;
+  min-height: 25vh;
+  align-items: center;
+  .container{
+    padding: 15px;
+    flex: 1;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 332px;
+    max-width: 352px;
+    background-color: #fff;
+    border-radius: 15px;
+    border: 1px solid #d2d2d2c1;
+    box-shadow: 1px 1px 1px 1px #d2d2d2c1;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.5rem;
+  }
+}

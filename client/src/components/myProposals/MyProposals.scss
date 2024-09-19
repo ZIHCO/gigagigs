@@ -1,5 +1,5 @@
 /* Mobile styles */
-.myJobs{
+.myProposals{
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -18,13 +18,11 @@
         }
       }
     }
-    .incompleteBio{
-    }
   }
   
   /* larger screen */
   @media(min-width: 768px){
-    .myJobs{
+    .myProposals{
       display: flex;
       flex-direction: column;
       gap: 20px;
