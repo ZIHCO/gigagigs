@@ -60,23 +60,19 @@ class Profile extends Component {
 
   async fetchMyProposals() {
     this.setState({
-      loading: true, error: null, success: false
+      loadingMyProposals: true, error: null, myProposals: false
     });
-
-    const { username, password } = this.state;
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/login`,
+        `${process.env.REACT_APP_API_URL}/proposals/my-proposals`,
         {
-          method: 'POST',
+          method: 'GET',
           headers: {
+            'Authorization': JSON.parse(sessionStorage.getItem('Authorization')),
             'Content-Type': 'application/json',
+
           },
-          body: JSON.stringify({
-            username: username,
-            password: password,
-          }),
         }
       );
 
@@ -87,17 +83,14 @@ class Profile extends Component {
       const result = await response.json();
       const headers = await response.headers;
       sessionStorage.setItem('Authorization', JSON.stringify(headers.get('Authorization')));
-      sessionStorage.setItem('currentUser', JSON.stringify(result.currentUser));
-      sessionStorage.setItem('recommendedJobs', JSON.stringify(result.recommendedJobs));
+      sessionStorage.setItem('myProposals', JSON.stringify(result));
 
       this.setState({
-        success: true, loading: false,
-        username: '', password: '',
+        myProposals: true, loadingMyProposals: false,
       });
     } catch (err) {
       this.setState({
-        error: err.message, loading: false,
-        username: '', password: '',
+        error: err.message, loadingMyProposals: false,
       });
     }
   }
@@ -109,11 +102,16 @@ class Profile extends Component {
   }
 
   render() {
-    const { currentUser, loadingMyJobs, myJobs } = this.state;
+    const { currentUser, loadingMyJobs, myJobs, myProposals, loadingMyProposals, error } = this.state;
     const { disabledEditButton } = this.props;
 
     if (myJobs) {
       window.location.href = '/jobs/my-jobs';
+      return ;
+    }
+
+    if (myProposals) {
+      window.location.href = '/proposals/my-proposals';
       return ;
     }
 
@@ -147,7 +145,7 @@ class Profile extends Component {
               {loadingMyJobs ? <span>Loading my jobs...</span> : <span>My jobs</span>}
             </button>
             <button onClick={this.fetchMyProposals}>
-              <span>My proposals</span>
+              {loadingMyProposals ? <span>Loading my proposals...</span> : <span>My proposals</span>}
             </button>
           </div>
         </div>

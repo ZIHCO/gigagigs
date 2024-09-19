@@ -3,23 +3,23 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps }from '../../redux/actions.js';
 import Pfp from '../../components/dashboard/Pfp.js';
 import Profile from '../../components/dashboard/Profile.js';
-import './JobListing.scss';
+import './MakeProposal.scss';
+
 
 /**
- * Job Listing
+ * make proposal
  */
-class JobListing extends Component {
+class MakeProposal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      description: '',
-      minBudget: null,
-      maxBudget: null,
-      skills: '',
+      jobId: JSON.parse(sessionStorage.getItem('jobApplication'))._id,
+      jobTitle: JSON.parse(sessionStorage.getItem('jobApplication')).title,
+      coverLetter: '',
+      price: 10,
       error: '',
       success: false,
-      loading: ''
+      loading: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,17 +36,12 @@ class JobListing extends Component {
     this.setState({ loading: true });
 
     const {
-      title, description, minBudget, maxBudget,
+      price, coverLetter, jobId, jobTitle
     } = this.state;
-
-    const skillString = this.state.skills;
-    const skillStringToLowercase = skillString.toLowerCase();
-    const skills = skillStringToLowercase.split(', ');
-    const budget = `${minBudget} - ${maxBudget}`;
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/jobs/create-job`,
+        `${process.env.REACT_APP_API_URL}/proposals/make-proposal`,
         {
           method: 'POST',
           headers: {
@@ -54,10 +49,10 @@ class JobListing extends Component {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            title,
-            skills,
-            description,
-            budget
+            title: jobTitle,
+            coverLetter,
+            price,
+            jobId,
           })
         }
       );
@@ -71,7 +66,7 @@ class JobListing extends Component {
 
       const headers = await response.headers;
       sessionStorage.setItem('Authorization', JSON.stringify(headers.get('Authorization')));
-      sessionStorage.setItem('myJobs', JSON.stringify(result));
+      sessionStorage.setItem('myProposals', JSON.stringify(result));
 
       this.setState({
         success: true,
@@ -86,8 +81,8 @@ class JobListing extends Component {
 
   render() {
     const {
-      title, maxBudget, minBudget, description, loading,
-      skills, success, error
+      jobTitle, price, loading,
+      success, error, coverLetter
     } = this.state;
 
     if (success) {
@@ -96,7 +91,7 @@ class JobListing extends Component {
     }
     
     return (
-      <div className='jobListing'>
+      <div className='makeProposal'>
         {error && <span>{error}</span>}
         {success && <span>{success}</span>}
         <div className="containerOne">
@@ -108,72 +103,39 @@ class JobListing extends Component {
           </div>
         </div>
         <div className='containerTwo'>
-          <h2>Create a new job</h2>
+          <h2>Apply for this job</h2>
           <form onSubmit={this.handleSubmit}>
-            <div className="formGroup">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                value={title}
-                onChange={this.handleChange}
-                required
-              />
-            </div>
-            <div>
-              <i>{'NB: enter the skills needed for this job, separated by \', \''}</i>
-              <div className="formGroup">
-                <label htmlFor="skills">Skills</label>
-                <input
-                  type="text"
-                  id="skills"
-                  name="skills"
-                  value={skills}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
+            <div className="formGroup title">
+              <label htmlFor="title">Job title</label>
+              <span>{jobTitle}</span>
             </div>
             <div className="formGroup">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="coverLetter">Cover letter</label>
               <textarea
-                id="description"
-                name="description"
+                id="coverLetter"
+                name="coverLetter"
                 rows={6}
-                value={description}          
+                value={coverLetter}          
                 onChange={this.handleChange}
                 required
               />
             </div>
-            <div className='budget'>
+            <div className='price'>
               <div className="numberGroup">
-                <label htmlFor="minBudget">Min budget $</label>
+                <label htmlFor="price">Price $</label>
                 <input
                   type="number"
-                  id="minBudget"
-                  name="minBudget"
-                  value={minBudget}          
+                  id="price"
+                  name="price"
+                  value={price}          
                   onChange={this.handleChange}
                   min={10}
                   required
                 />
               </div>
-              <div className="numberGroup">
-                <label htmlFor="maxBudget">Max budget $</label>
-                <input
-                  type="number"
-                  id="maxBudget"
-                  name="maxBudget"
-                  value={maxBudget}          
-                  onChange={this.handleChange}
-                  min={11}
-                  required
-                />
-              </div>
             </div>
             <button type="submit" disabled={loading}>
-              {loading ? 'Creating this job...' : 'Create job'}
+              {loading ? 'Submitting this apply...' : 'Summit apply'}
             </button>
           </form>
         </div>
@@ -182,4 +144,4 @@ class JobListing extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobListing);
+export default connect(mapStateToProps, mapDispatchToProps)(MakeProposal);

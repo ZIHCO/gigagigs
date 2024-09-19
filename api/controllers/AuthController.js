@@ -2,6 +2,7 @@ import sha256 from 'sha256';
 import JWTSecure from '../utils/jwt';
 import dbClient from '../utils/db';
 import redisClient from '../utils/redis';
+import { ObjectId  } from 'mongodb';
 
 /**
  * authentication endpoints
@@ -42,7 +43,7 @@ export default class AuthController {
       pipeline.push({
         $match: {
           skills: { $in: user.profile.skills },
-          clientId: { $ne: user._id },
+          clientId: { $ne: user._id.toString() },
           status: 'open'
         }
       });

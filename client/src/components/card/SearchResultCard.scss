@@ -1,0 +1,30 @@
+/* mobile styles */
+.searchResultCard{
+    border: 1px solid #3e2b3c;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 152px;
+    height: 244px;
+    background-color: #d2d2d2c1;
+    span{
+      font-weight: 500;
+      font-size: 1.1rem;
+      flex: 1;
+      i{
+        font-size: 1.2rem;
+        font-style: normal;
+      }
+    }
+  }
+  
+  /* Larger screen styles */
+  @media(min-width: 768px) {
+    .searchResultCard{
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      width: 252px;
+      height: 344px;
+    }
+  }

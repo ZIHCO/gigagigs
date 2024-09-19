@@ -1,5 +1,10 @@
 /* Mobile styles */
 .recommendedJobs{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  .containerOnes{
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -14,23 +19,23 @@
       }
     }
   }
-  
-  /* larger screen */
-  @media(min-width: 768px){
-    .recommendedJobs{
+}
+
+/* larger screen */
+@media(min-width: 768px){
+  .recommendedJobs{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .slide-container{
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      .slide-container{
+      justify-content: space-between;
+      align-items: center;
+      .slide{
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .slide{
-          display: flex;
-          justify-content: center;
-          flex: 1;
-        }
+        justify-content: center;
+        flex: 1;
       }
     }
   }
-  
+}

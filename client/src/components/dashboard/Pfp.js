@@ -94,7 +94,7 @@ export default class Pfp extends Component {
           }}
         >
           <button onClick={() => this.setState({updatePfp: !updatePfp})}>
-            <img src="../images/pen.png" alt="Change your profile picture" />
+            <img src={"../images/pen.png"} alt="Change your profile picture" />
           </button>
         </div>
         {updatePfp && <div className="updatePfp">

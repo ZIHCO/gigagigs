@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import OpenJobsCard from '../card/OpenJobsCard.js';
 import PendingJobsCard from '../card/PendingJobsCard.js';
+import Alternative from '../card/Alternative.js';
 import './MyJobs.scss';
 
 export default class MyJobs extends Component {
@@ -16,22 +17,31 @@ export default class MyJobs extends Component {
     const { openJobs, pendingJobs } = this.state;
     return (
       <div className="myJobs">
-        <div className='openJobs'>
-          <h2>My open jobs</h2>
+        {(openJobs.length !== 0) && <div className='openJobs'>
           {openJobs.map((item, index) => (
             <div className="slide" key={index}>
               <OpenJobsCard item={item} />
             </div>
           ))}
-        </div>
-        <div className='pendingJobs'>
+        </div>}
+        {(openJobs.length === 0) &&
+          <div className='incompleteBio'>
+            <Alternative message="You don't have any open jobs" />
+          </div>
+        }
+        {(pendingJobs.length !== 0)  && <div className='pendingJobs'>
           <h2>My pending jobs</h2>
           {pendingJobs.map((item, index) => (
             <div className="slide" key={index}>
               <PendingJobsCard item={item} />
             </div>
           ))}
-        </div>
+        </div>}
+        {(pendingJobs.length === 0) &&
+          <div className='incompleteBio'>
+            <Alternative message="You don't have any pending jobs" />
+          </div>
+        }
       </div>
     );
   }
